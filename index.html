@@ -170,29 +170,124 @@
       90%  { opacity: 1; }
       100% { transform: translateY(-10vh) scale(1); opacity: 0; }
     }
+
+    .sprite-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.15s;
+    }
+
+    .sprite-btn:hover { transform: scale(1.1); }
+    .sprite-btn:active { transform: scale(0.95); }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: linear-gradient(135deg, #1e2a45, #16213e);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 320px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(56,189,248,0.2);
+      animation: pop-in 0.2s ease-out;
+    }
+
+    @keyframes pop-in {
+      from { transform: scale(0.85); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+
+    .modal h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, #38bdf8, #a78bfa);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .modal p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .modal-close {
+      margin-top: 1.25rem;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.6);
+      padding: 0.4rem 1.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      transition: background 0.15s;
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,0.15); }
   </style>
 </head>
 <body>
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+      <button class="modal-close" id="modalClose">Close</button>
+    </div>
+  </div>
+
   <div class="particles" id="particles"></div>
   <div class="container">
     <h1>Hello Dylan!</h1>
     <p class="subtitle">Welcome to the page</p>
     <div class="pokemon-row">
-      <div class="pokemon">
+      <button class="sprite-btn pokemon"
+        data-name="Pikachu"
+        data-desc="The iconic Electric-type Pokémon. Pikachu stores electricity in its rosy cheeks and can zap opponents with powerful thunderbolts. It's the most famous Pokémon in the world!">
         <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu">
         <span>Pikachu</span>
-      </div>
-      <div class="pokemon">
+      </button>
+      <button class="sprite-btn pokemon"
+        data-name="Charizard"
+        data-desc="A fierce Fire/Flying-type Pokémon. Charizard soars the skies searching for worthy opponents. Its breath is hot enough to melt solid rock — don't make it angry!">
         <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="Charizard">
         <span>Charizard</span>
-      </div>
-      <div class="pokemon">
+      </button>
+      <button class="sprite-btn pokemon"
+        data-name="Bulbasaur"
+        data-desc="A Grass/Poison-type Pokémon and one of the original three starters. Bulbasaur carries a seed on its back that slowly grows into a giant flowering plant as it evolves.">
         <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur">
         <span>Bulbasaur</span>
-      </div>
+      </button>
     </div>
 
     <div class="monster-truck-wrap">
+      <button class="sprite-btn"
+        data-name="Monster Truck"
+        data-desc="A massive vehicle fitted with enormous off-road wheels, built for crushing cars and performing wild stunts. Monster trucks compete in arenas doing huge jumps and freestyle tricks in front of roaring crowds.">
       <!-- Monster Truck SVG -->
       <svg width="120" height="80" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
         <!-- Suspension axles -->
@@ -234,9 +329,13 @@
         <line x1="110" y1="62" x2="114" y2="62" stroke="#666" stroke-width="2"/>
       </svg>
       <span>Monster Truck</span>
+      </button>
     </div>
 
     <div class="rocket-wrap">
+      <button class="sprite-btn"
+        data-name="Rocket"
+        data-desc="A spacecraft powered by burning fuel at extreme speed. Rockets are used to launch satellites, carry astronauts to the International Space Station, and one day take humans to Mars!">
       <svg width="70" height="160" viewBox="0 0 70 160" xmlns="http://www.w3.org/2000/svg">
         <!-- Flame (outer) -->
         <ellipse class="flame-flicker" cx="35" cy="148" rx="13" ry="18" fill="#f5a623"/>
@@ -266,6 +365,7 @@
         <polygon points="52,100 66,135 52,125" fill="#38bdf8"/>
       </svg>
       <span>Rocket</span>
+      </button>
     </div>
   </div>
   <script>
@@ -280,6 +380,23 @@
       p.style.background = ['#e94560','#f5a623','#a78bfa','#38bdf8'][Math.floor(Math.random()*4)];
       container.appendChild(p);
     }
+
+    const overlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+
+    document.querySelectorAll('.sprite-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        modalTitle.textContent = btn.dataset.name;
+        modalDesc.textContent = btn.dataset.desc;
+        overlay.classList.add('open');
+      });
+    });
+
+    function closeModal() { overlay.classList.remove('open'); }
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
   </script>
 </body>
 </html>

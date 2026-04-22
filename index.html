@@ -108,6 +108,42 @@
       100% { transform: translateY(-6px) rotate(2deg); }
     }
 
+    .rocket-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 2rem;
+    }
+
+    .rocket-wrap span {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .rocket-wrap svg {
+      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.7));
+      animation: liftoff 2s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+
+    .flame-flicker {
+      animation: flicker 0.15s ease-in-out infinite alternate;
+      transform-origin: top center;
+    }
+
+    @keyframes liftoff {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-14px); }
+    }
+
+    @keyframes flicker {
+      0%   { transform: scaleX(1)   scaleY(1); opacity: 0.9; }
+      100% { transform: scaleX(0.7) scaleY(1.2); opacity: 1; }
+    }
+
     .particles {
       position: fixed;
       top: 0; left: 0;
@@ -198,6 +234,38 @@
         <line x1="110" y1="62" x2="114" y2="62" stroke="#666" stroke-width="2"/>
       </svg>
       <span>Monster Truck</span>
+    </div>
+
+    <div class="rocket-wrap">
+      <svg width="70" height="160" viewBox="0 0 70 160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Flame (outer) -->
+        <ellipse class="flame-flicker" cx="35" cy="148" rx="13" ry="18" fill="#f5a623"/>
+        <!-- Flame (inner) -->
+        <ellipse class="flame-flicker" cx="35" cy="150" rx="7" ry="12" fill="#fde68a"/>
+        <!-- Engine bell -->
+        <polygon points="20,128 50,128 55,140 15,140" fill="#999"/>
+        <!-- Body -->
+        <rect x="18" y="50" width="34" height="80" rx="4" fill="#d1d5db"/>
+        <!-- Body accent stripe -->
+        <rect x="18" y="90" width="34" height="10" fill="#38bdf8" opacity="0.8"/>
+        <!-- USA flag patch -->
+        <rect x="23" y="72" width="14" height="9" rx="1" fill="#e94560"/>
+        <rect x="23" y="72" width="14" height="3" rx="1" fill="#fff"/>
+        <rect x="23" y="75" width="14" height="3" fill="#e94560"/>
+        <rect x="23" y="78" width="14" height="3" fill="#fff"/>
+        <!-- Porthole window -->
+        <circle cx="46" cy="76" r="6" fill="#7dd3fc" stroke="#aaa" stroke-width="2"/>
+        <circle cx="46" cy="76" r="3" fill="#38bdf8" opacity="0.6"/>
+        <!-- Nose cone -->
+        <polygon points="35,6 18,50 52,50" fill="#38bdf8"/>
+        <!-- Nose cone shine -->
+        <polygon points="35,6 18,50 26,50" fill="#7dd3fc" opacity="0.4"/>
+        <!-- Left fin -->
+        <polygon points="18,100 4,135 18,125" fill="#38bdf8"/>
+        <!-- Right fin -->
+        <polygon points="52,100 66,135 52,125" fill="#38bdf8"/>
+      </svg>
+      <span>Rocket</span>
     </div>
   </div>
   <script>

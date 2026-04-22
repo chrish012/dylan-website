@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello Dylan!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 5rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #e94560, #f5a623, #e94560);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shine 3s linear infinite;
+      letter-spacing: 4px;
+      text-shadow: none;
+    }
+
+    .subtitle {
+      margin-top: 1rem;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 1rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+    }
+
+    .pokemon-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+
+    .pokemon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .pokemon img {
+      width: 96px;
+      height: 96px;
+      image-rendering: pixelated;
+      filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.6));
+      animation: bounce 1.8s ease-in-out infinite;
+    }
+
+    .pokemon:nth-child(2) img { animation-delay: 0.3s; }
+    .pokemon:nth-child(3) img { animation-delay: 0.6s; }
+
+    .pokemon span {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .monster-truck-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 2rem;
+    }
+
+    .monster-truck-wrap span {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .monster-truck-wrap svg {
+      filter: drop-shadow(0 0 10px rgba(245, 166, 35, 0.7));
+      animation: crush 0.6s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    @keyframes crush {
+      0%   { transform: translateY(0) rotate(-2deg); }
+      100% { transform: translateY(-6px) rotate(2deg); }
+    }
+
+    .particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(233, 69, 96, 0.6);
+      animation: float linear infinite;
+    }
+
+    @keyframes shine {
+      to { background-position: 200% center; }
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+      10%  { opacity: 1; }
+      90%  { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="container">
+    <h1>Hello Dylan!</h1>
+    <p class="subtitle">Welcome to the page</p>
+    <div class="pokemon-row">
+      <div class="pokemon">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" alt="Pikachu">
+        <span>Pikachu</span>
+      </div>
+      <div class="pokemon">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png" alt="Charizard">
+        <span>Charizard</span>
+      </div>
+      <div class="pokemon">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png" alt="Bulbasaur">
+        <span>Bulbasaur</span>
+      </div>
+    </div>
+
+    <div class="monster-truck-wrap">
+      <!-- Monster Truck SVG -->
+      <svg width="120" height="80" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+        <!-- Suspension axles -->
+        <line x1="22" y1="55" x2="22" y2="45" stroke="#888" stroke-width="3"/>
+        <line x1="98" y1="55" x2="98" y2="45" stroke="#888" stroke-width="3"/>
+        <!-- Body -->
+        <rect x="10" y="30" width="100" height="28" rx="4" fill="#e94560"/>
+        <!-- Cab roof -->
+        <rect x="30" y="14" width="55" height="18" rx="4" fill="#c73652"/>
+        <!-- Windshield -->
+        <rect x="34" y="17" width="22" height="12" rx="2" fill="#7dd3fc" opacity="0.85"/>
+        <!-- Rear window -->
+        <rect x="60" y="17" width="20" height="12" rx="2" fill="#7dd3fc" opacity="0.85"/>
+        <!-- Headlights -->
+        <rect x="11" y="36" width="8" height="5" rx="1" fill="#fde68a"/>
+        <!-- Exhaust pipes -->
+        <rect x="82" y="10" width="5" height="20" rx="2" fill="#aaa"/>
+        <rect x="89" y="12" width="5" height="18" rx="2" fill="#aaa"/>
+        <!-- Flame from exhaust -->
+        <ellipse cx="84" cy="9" rx="3" ry="4" fill="#f5a623" opacity="0.9"/>
+        <ellipse cx="91" cy="11" rx="2.5" ry="3.5" fill="#f5a623" opacity="0.9"/>
+        <!-- Front wheel (big) -->
+        <circle cx="22" cy="62" r="16" fill="#222"/>
+        <circle cx="22" cy="62" r="11" fill="#444"/>
+        <circle cx="22" cy="62" r="4"  fill="#888"/>
+        <!-- Tread marks front -->
+        <line x1="22" y1="46" x2="22" y2="50" stroke="#666" stroke-width="2"/>
+        <line x1="22" y1="74" x2="22" y2="78" stroke="#666" stroke-width="2"/>
+        <line x1="6"  y1="62" x2="10" y2="62" stroke="#666" stroke-width="2"/>
+        <line x1="34" y1="62" x2="38" y2="62" stroke="#666" stroke-width="2"/>
+        <!-- Rear wheel (big) -->
+        <circle cx="98" cy="62" r="16" fill="#222"/>
+        <circle cx="98" cy="62" r="11" fill="#444"/>
+        <circle cx="98" cy="62" r="4"  fill="#888"/>
+        <!-- Tread marks rear -->
+        <line x1="98" y1="46" x2="98" y2="50" stroke="#666" stroke-width="2"/>
+        <line x1="98" y1="74" x2="98" y2="78" stroke="#666" stroke-width="2"/>
+        <line x1="82" y1="62" x2="86" y2="62" stroke="#666" stroke-width="2"/>
+        <line x1="110" y1="62" x2="114" y2="62" stroke="#666" stroke-width="2"/>
+      </svg>
+      <span>Monster Truck</span>
+    </div>
+  </div>
+  <script>
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 40; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (6 + Math.random() * 10) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = p.style.height = (2 + Math.random() * 5) + 'px';
+      p.style.background = ['#e94560','#f5a623','#a78bfa','#38bdf8'][Math.floor(Math.random()*4)];
+      container.appendChild(p);
+    }
+  </script>
+</body>
+</html>
